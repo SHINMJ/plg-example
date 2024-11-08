@@ -9,14 +9,20 @@ services:
     volumes:
       - ./loki-config.yml:/etc/loki/local-config.yaml
     command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - plg-networks
 
   promtail:
+    depends_on:
+      - loki
     image: grafana/promtail:2.8.2
     container_name: promtail
     volumes:
       - /var/log:/var/log
       - ./promtail-config.yml:/etc/promtail/config.yaml
     command: -config.file=/etc/promtail/config.yaml
+    networks:
+      - plg-networks
 
   grafana:
     image: grafana/grafana:latest
@@ -27,6 +33,11 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-storage:/var/lib/grafana
+    networks:
+      - plg-networks
 
 volumes:
   grafana-storage:
+
+networks:
+  plg-networks:
