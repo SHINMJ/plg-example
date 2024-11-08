@@ -6,9 +6,6 @@ services:
     container_name: loki
     ports:
       - "3100:3100"
-    volumes:
-      - ./loki-config.yml:/etc/loki/local-config.yaml
-      - ./loki-data:/tmp/loki  # /tmp/loki에 대한 호스트 볼륨 마운트
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - plg-networks
@@ -39,7 +36,6 @@ services:
 
 volumes:
   grafana-storage:
-  loki-data:  
 
 networks:
   plg-networks:
