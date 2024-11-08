@@ -9,6 +9,8 @@ ingester:
       kvstore:
         store: inmemory
       replication_factor: 1
+  wal:
+      dir: /tmp/loki/wal  
 
 schema_config:
   configs:
